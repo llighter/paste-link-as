@@ -11,8 +11,8 @@ Collez une URL et choisissez sa forme dans votre note : un lien avec titre, une 
 Collez une URL dans une note. Elle est insérée aussitôt sous la forme `[Titre](url)`, et un petit menu s'ouvre en dessous :
 
 - **Garder** : reste un lien avec titre.
-- **Mention** : favicon, nom du site et titre sur une ligne.
-- **Carte** : miniature, titre, description sur deux lignes, et le favicon avec le domaine.
+- **Mention** : favicon, nom du site et titre sur une ligne, raccourcie par … si elle est trop longue.
+- **Carte** : miniature, titre, description sur deux lignes, et le favicon avec l'adresse du lien.
 
 Utilisez ↑/↓ et Entrée (ou Tab) pour choisir, et Échap pour fermer. Pour ignorer le menu, continuez simplement à écrire ; Entrée sur **Garder** crée une nouvelle ligne comme d'habitude.
 
@@ -51,7 +51,7 @@ Une carte est un callout `[!link]` :
 >
 > The Odyssey - In Theaters 07.17.26…
 >
-> ![[favicon-youtube.com.png|16]] youtube.com
+> ![[favicon-youtube.com.png|16]] https://www.youtube.com/watch?v=Mzw2ttJD2qQ
 ```
 
 Aucune syntaxe propre au plugin. Plugin désactivé, une mention s'affiche comme un lien classique et une carte comme un callout classique ; seul le style disparaît.
@@ -89,9 +89,12 @@ Les fichiers existants sont réutilisés : coller un autre lien du même site ne
 
 `styles.css` ne cible que les cartes (callouts `[!link]`) et les mentions (un lien contenant une image de 16 px et un nom de site en italique). Les autres liens et images gardent l'apparence de votre thème. Pour ajuster l'apparence, surchargez ces sélecteurs dans un extrait CSS.
 
+La graisse des titres vient de `--paste-link-as-title-weight` (500 par défaut). Pour la modifier, ajoutez un extrait CSS comme `body { --paste-link-as-title-weight: 600; }`.
+
 ## Limites
 
 - Tant que le menu est ouvert, ↑/↓ se déplacent dans le menu. Appuyez d'abord sur Échap pour déplacer le curseur.
+- En aperçu en direct, une ligne contenant une mention reste sur une seule ligne, terminée par …, tant que le curseur n'y est pas. Le reste du texte de cette ligne est aussi raccourci.
 - Un lien contenant une image de 16 px de large et du texte en italique est stylé comme une mention, et un callout de type `link` comme une carte.
 - Les plugins qui réécrivent aussi les URL collées, comme Auto Link Title, traitent le même événement de collage. Désactivez leur gestion du collage pour qu'un collage ne soit pas traité deux fois.
 

@@ -1,7 +1,8 @@
 /* Paste Link As: look of link cards, mentions and the format menu.
    - A card is a [!link] callout.
    - A mention is a link holding a 16px favicon and an italic site name: [![|16](favicon.png) *Site* Title](url).
-   The rules only match those shapes, so other links and images keep the theme's look. */
+   The rules only match those shapes, so other links and images keep the theme's look.
+   Title weight: --paste-link-as-title-weight (500 by default), e.g. body { --paste-link-as-title-weight: 600; } */
 
 /* ── Format menu under a pasted URL ── */
 .suggestion-container.paste-link-as-menu {
@@ -21,7 +22,7 @@
    the last paragraph is favicon + domain. */
 .callout[data-callout="link"] {
   display: grid;
-  grid-template-columns: minmax(96px, 28%) 1fr;
+  grid-template-columns: minmax(96px, 28%) minmax(0, 1fr);   /* minmax(0, …): one-line text shrinks instead of widening the card */
   column-gap: 16px;
   padding: 0;
   overflow: hidden;
@@ -40,7 +41,7 @@
 }
 .callout[data-callout="link"] .callout-title a {
   color: var(--text-normal);
-  font-weight: 600;
+  font-weight: var(--paste-link-as-title-weight, 500);
   text-decoration: none;
   background-image: none;          /* no external-link arrow */
   padding-right: 0;
@@ -95,11 +96,30 @@
   overflow: hidden;
   font-size: 0.9em;
 }
-/* Last line: favicon + domain, small and muted */
+/* Last line: favicon + link address, small and muted, on one line */
 .callout[data-callout="link"] > .callout-content > :last-child {
   color: var(--text-muted);
   font-size: 0.85em;
   margin-bottom: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* The address is a link; show it as muted text (the whole card is already the link) */
+.callout[data-callout="link"] > .callout-content > :last-child a,
+.callout[data-callout="link"] > .callout-content > :last-child a:hover {
+  --link-color: var(--text-muted);
+  --link-color-hover: var(--text-muted);
+  --link-external-color: var(--text-muted);
+  --link-external-color-hover: var(--text-muted);
+  --link-decoration: none;
+  --link-decoration-hover: none;
+  --link-external-decoration: none;
+  --link-external-decoration-hover: none;
+  color: var(--text-muted);
+  text-decoration: none;
+  background-image: none;
+  padding-right: 0;
 }
 /* Keep the favicon inline (Minimal's image grid turns image embeds into blocks) */
 .callout[data-callout="link"] > .callout-content > :last-child .image-embed {
@@ -115,7 +135,7 @@
 }
 /* A card without a thumbnail has one column */
 .callout[data-callout="link"]:not(:has(> .callout-content > :not(:last-child) img)) {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 .callout[data-callout="link"]:not(:has(> .callout-content > :not(:last-child) img)) > .callout-title,
 .callout[data-callout="link"]:not(:has(> .callout-content > :not(:last-child) img)) > .callout-content > * {
@@ -161,14 +181,17 @@ body .markdown-rendered a:has(img[width="16"]):has(em):hover {
   --link-external-decoration: none;
   --link-external-decoration-hover: none;
   color: var(--text-normal);
-  font-weight: 600;
+  font-weight: var(--paste-link-as-title-weight, 500);
   text-decoration: none;
   background-image: none;          /* no external-link arrow */
   padding: 3px 4px;                /* hover highlight area; the negative margin keeps the text in place */
   margin: 0 -4px;
   border-radius: 4px;
-  -webkit-box-decoration-break: clone;   /* rounded on every line when it wraps */
-  box-decoration-break: clone;
+  display: inline-block;           /* one line; a long mention ends with … */
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: clip;
+  text-overflow: ellipsis;
 }
 body .markdown-rendered a:has(img[width="16"]):has(em):hover {
   background-color: var(--background-modifier-hover);
@@ -219,10 +242,20 @@ body .markdown-rendered a:has(img[width="16"]):has(em) img {
   --link-external-decoration: none;
   --link-external-decoration-hover: none;
   color: var(--text-normal);
-  font-weight: 600;
+  font-weight: var(--paste-link-as-title-weight, 500);
   text-decoration: none;
   background-image: none;
   padding-right: 0;
+}
+
+/* Live preview: a line holding a mention stays on one line and ends with … until the cursor is on it (.cm-active).
+   The mention is drawn as separate spans, so only the whole line can be cut.
+   overflow: clip with a 4px margin keeps the edges of the hover highlight visible. */
+.is-live-preview .cm-line:not(.cm-active):has(img[width="16"] ~ .cm-em.cm-link, .image-embed ~ .cm-em.cm-link) {
+  white-space: pre;
+  overflow: clip;
+  overflow-clip-margin: 4px;
+  text-overflow: ellipsis;
 }
 
 /* Live preview hover: the mention is painted span by span.

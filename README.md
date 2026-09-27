@@ -11,8 +11,8 @@ Paste a URL and choose how it lands in your note: a titled link, an inline menti
 Paste a URL into a note. It goes in as `[Title](url)` right away, and a small menu opens under it:
 
 - **Keep**: stays a titled link.
-- **Mention**: favicon, site name and title on one line.
-- **Card**: thumbnail, title, a two-line description, and the favicon with the domain.
+- **Mention**: favicon, site name and title on one line, shortened with … when it's too long.
+- **Card**: thumbnail, title, a two-line description, and the favicon with the link address.
 
 Use ↑/↓ and Enter (or Tab) to pick, and Esc to close. To ignore the menu, just keep typing; Enter on **Keep** starts a new line as usual.
 
@@ -51,7 +51,7 @@ A card is a `[!link]` callout:
 >
 > The Odyssey - In Theaters 07.17.26…
 >
-> ![[favicon-youtube.com.png|16]] youtube.com
+> ![[favicon-youtube.com.png|16]] https://www.youtube.com/watch?v=Mzw2ttJD2qQ
 ```
 
 There is no plugin-specific syntax. With the plugin turned off, a mention shows as a normal link and a card as a normal callout; only the styling goes away.
@@ -89,9 +89,12 @@ Existing files are reused, so pasting another link from the same site doesn't do
 
 `styles.css` only matches cards (`[!link]` callouts) and mentions (a link that holds a 16px image and an italic site name). Other links and images keep your theme's look. To adjust the look, override these selectors in a CSS snippet.
 
+Title weight comes from `--paste-link-as-title-weight` (500 by default). To change it, add a CSS snippet such as `body { --paste-link-as-title-weight: 600; }`.
+
 ## Limitations
 
 - While the menu is open, ↑/↓ move inside the menu. Press Esc first to move the cursor.
+- In Live Preview, a line with a mention stays on one line, ending with …, until the cursor is on it. Other text on that line is shortened too.
 - A link that holds a 16px-wide image and italic text is styled as a mention, and a callout of type `link` as a card.
 - Plugins that also rewrite pasted URLs, such as Auto Link Title, handle the same paste event. Turn off their paste handling so that one paste isn't handled twice.
 

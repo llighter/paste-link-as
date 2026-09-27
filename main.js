@@ -113,7 +113,7 @@ function cardLines(p, favicon, thumb) {
   const lines = [`> [!link] [${escLink(p.title)}](${p.url})`];
   if (thumb) lines.push(`> ![[${thumb}]]`, ">");                          // thumbnail, description and domain as separate paragraphs
   if (p.desc) lines.push(`> ${escLink(p.desc).replace(/^([#>\-])/, "\\$1")}`, ">");
-  lines.push(`> ${favicon ? `![[${favicon}|16]] ` : ""}${p.host}`);       // last line: favicon + domain
+  lines.push(`> ${favicon ? `![[${favicon}|16]] ` : ""}${p.url}`);        // last line: favicon + link address
   return lines;
 }
 

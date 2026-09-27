@@ -11,8 +11,8 @@ Pega una URL y elige cómo aparece en tu nota: un enlace con título, una menci�
 Pega una URL en una nota. Se inserta de inmediato como `[Título](url)` y debajo se abre un pequeño menú:
 
 - **Mantener**: se queda como enlace con título.
-- **Mención**: favicon, nombre del sitio y título en una línea.
-- **Tarjeta**: miniatura, título, una descripción de dos líneas y el favicon con el dominio.
+- **Mención**: favicon, nombre del sitio y título en una línea, recortada con … si es demasiado larga.
+- **Tarjeta**: miniatura, título, una descripción de dos líneas y el favicon con la dirección del enlace.
 
 Usa ↑/↓ y Enter (o Tab) para elegir, y Esc para cerrar. Para ignorar el menú, sigue escribiendo; Enter en **Mantener** crea una nueva línea como siempre.
 
@@ -51,7 +51,7 @@ Una tarjeta es un callout `[!link]`:
 >
 > The Odyssey - In Theaters 07.17.26…
 >
-> ![[favicon-youtube.com.png|16]] youtube.com
+> ![[favicon-youtube.com.png|16]] https://www.youtube.com/watch?v=Mzw2ttJD2qQ
 ```
 
 No hay sintaxis propia del plugin. Con el plugin desactivado, una mención se ve como un enlace normal y una tarjeta como un callout normal; solo desaparece el estilo.
@@ -89,9 +89,12 @@ Los archivos existentes se reutilizan, así que al pegar otro enlace del mismo s
 
 `styles.css` solo se aplica a las tarjetas (callouts `[!link]`) y a las menciones (un enlace con una imagen de 16 px y un nombre de sitio en cursiva). Los demás enlaces e imágenes conservan el aspecto de tu tema. Para ajustar el aspecto, sobrescribe estos selectores en un fragmento CSS.
 
+El grosor de los títulos viene de `--paste-link-as-title-weight` (500 por defecto). Para cambiarlo, añade un fragmento CSS como `body { --paste-link-as-title-weight: 600; }`.
+
 ## Limitaciones
 
 - Mientras el menú está abierto, ↑/↓ se mueven dentro del menú. Pulsa Esc primero para mover el cursor.
+- En la vista previa en vivo, una línea con una mención se queda en una sola línea, terminada en …, hasta que el cursor está en ella. El resto del texto de esa línea también se recorta.
 - Un enlace que contiene una imagen de 16 px de ancho y texto en cursiva se muestra como mención, y un callout de tipo `link` como tarjeta.
 - Los plugins que también reescriben las URL pegadas, como Auto Link Title, manejan el mismo evento de pegado. Desactiva su manejo del pegado para que un mismo pegado no se procese dos veces.
 
