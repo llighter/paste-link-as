@@ -23,7 +23,7 @@
 .callout[data-callout="link"] {
   display: grid;
   grid-template-columns: minmax(96px, 28%) minmax(0, 1fr);   /* minmax(0, …): one-line text shrinks instead of widening the card */
-  column-gap: 16px;
+  gap: 0 16px;
   padding: 0;
   overflow: hidden;
   background-color: transparent;

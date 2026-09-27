@@ -1,6 +1,6 @@
 # Push a tag that matches the version in manifest.json (for example 1.0.0, no "v"),
-# and this creates a draft GitHub release with the three files Obsidian downloads.
-# Review the draft on GitHub, then publish it.
+# and this creates a draft GitHub release with the three files Obsidian downloads, generated release notes,
+# and build provenance attestations for the files. Review the draft on GitHub (add notes if you like), then publish it.
 name: Release
 
 on:
@@ -10,6 +10,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write        # attestations
+  attestations: write
 
 jobs:
   release:
@@ -26,9 +28,17 @@ jobs:
             exit 1
           fi
 
+      - name: Attest the release files
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
+
       - name: Create a draft release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           tag="${GITHUB_REF#refs/tags/}"
-          gh release create "$tag" --title "$tag" --draft main.js manifest.json styles.css
+          gh release create "$tag" --title "$tag" --draft --generate-notes main.js manifest.json styles.css

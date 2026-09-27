@@ -6,7 +6,7 @@
    - The format menu borrows Obsidian's suggestion styles but is opened by the plugin itself:
      EditorSuggest opens while typing, so it isn't guaranteed to open right after a paste. */
 "use strict";
-const { Plugin, PluginSettingTab, Setting, Modal, Notice, TFile, normalizePath, requestUrl } = require("obsidian");
+const { Plugin, PluginSettingTab, Setting, Modal, Notice, TFile, normalizePath, requestUrl, getLanguage } = require("obsidian");
 
 const DEFAULTS = { folder: "" };   // "" = Obsidian's attachment location
 const UA = { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36", "Accept-Language": "ko,en;q=0.8" };
@@ -85,7 +85,7 @@ const TEXT = {
     folderDesc: "Emplacement des miniatures et des favicons. Laissez vide pour utiliser l'emplacement des pièces jointes défini dans les paramètres d'Obsidian.",
   },
 };
-const LANG = String(window.localStorage.getItem("language") || "en").toLowerCase();
+const LANG = String((typeof getLanguage === "function" && getLanguage()) || "en").toLowerCase();   // Obsidian's display language
 const T = Object.assign({}, TEXT.en, TEXT[LANG.split("-")[0]], TEXT[LANG]);
 
 // ── Text helpers ──
@@ -235,12 +235,10 @@ class PasteLinkAsPlugin extends Plugin {
     }
   }
 
-  // ── Commands: turn the selected URL (else the clipboard, else ask) into a card or a mention ──
+  // ── Commands: turn the selected URL (else ask for one) into a card or a mention ──
   async fromCommand(editor, info, kind) {
     const text = editor.getSelection().replace(/\s+$/, "");       // keep trailing spaces and line breaks
-    let url = findUrl(text);
-    if (!url) { try { url = findUrl(await navigator.clipboard.readText()); } catch (e) { /* no clipboard: ask */ } }
-    if (!url) url = findUrl(await this.ask(T.ask));
+    const url = findUrl(text) || findUrl(await this.ask(T.ask));
     if (!url) { new Notice(T.noUrl); return; }
     const at = editor.posToOffset(editor.getCursor("from"));
     if (!text) editor.replaceSelection(url);                      // nothing selected: insert the URL, then replace it

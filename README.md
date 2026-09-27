@@ -25,7 +25,7 @@ You can also convert a URL that is already in a note. Select it (a bare URL or a
 - **Turn link into card**
 - **Turn link into mention**
 
-With nothing selected, the commands use the URL on the clipboard, or ask for one. The plugin sets no default hotkeys; assign your own in **Settings → Hotkeys**.
+With nothing selected, the commands ask for a URL. The plugin sets no default hotkeys; assign your own in **Settings → Hotkeys**.
 
 The menu, commands and settings follow Obsidian's language: English, Korean, Simplified Chinese, Japanese, Spanish or French. Traditional Chinese uses Simplified Chinese, and any other language falls back to English.
 

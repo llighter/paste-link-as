@@ -25,7 +25,7 @@ También puedes convertir una URL que ya está en una nota. Selecciónala (una U
 - **Convertir enlace en tarjeta**
 - **Convertir enlace en mención**
 
-Si no hay nada seleccionado, los comandos usan la URL del portapapeles o te la piden. El plugin no asigna atajos de teclado por defecto; asigna los tuyos en la configuración de Obsidian.
+Si no hay nada seleccionado, los comandos te piden una URL. El plugin no asigna atajos de teclado por defecto; asigna los tuyos en la configuración de Obsidian.
 
 El menú, los comandos y la configuración siguen el idioma de Obsidian: inglés, coreano, chino simplificado, japonés, español o francés. El chino tradicional usa el chino simplificado y cualquier otro idioma usa el inglés.
 

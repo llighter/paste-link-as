@@ -25,7 +25,7 @@ Vous pouvez aussi convertir une URL déjà présente dans une note. Sélectionne
 - **Transformer le lien en carte**
 - **Transformer le lien en mention**
 
-Sans sélection, les commandes utilisent l'URL du presse-papiers, ou vous la demandent. Le plugin ne définit aucun raccourci par défaut ; attribuez les vôtres dans les paramètres d'Obsidian.
+Sans sélection, les commandes vous demandent une URL. Le plugin ne définit aucun raccourci par défaut ; attribuez les vôtres dans les paramètres d'Obsidian.
 
 Le menu, les commandes et les paramètres suivent la langue d'Obsidian : anglais, coréen, chinois simplifié, japonais, espagnol ou français. Le chinois traditionnel utilise le chinois simplifié, et toute autre langue utilise l'anglais.
 
