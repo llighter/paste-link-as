@@ -1,0 +1,7 @@
+# Plugin settings Obsidian writes when this folder is used inside a vault
+data.json
+
+# Local vault path for scripts/install.sh
+.vault-path
+
+.DS_Store

@@ -1,0 +1,258 @@
+/* Paste Link As: look of link cards, mentions and the format menu.
+   - A card is a [!link] callout.
+   - A mention is a link holding a 16px favicon and an italic site name: [![|16](favicon.png) *Site* Title](url).
+   The rules only match those shapes, so other links and images keep the theme's look. */
+
+/* ── Format menu under a pasted URL ── */
+.suggestion-container.paste-link-as-menu {
+  position: fixed;
+  min-width: 240px;
+}
+.suggestion-container.paste-link-as-menu.is-placing {
+  visibility: hidden;
+}
+.paste-link-as-input {
+  width: 100%;
+}
+
+/* ── Link card ──
+   Thumbnail on the left; title, a two-line description, and favicon + domain on the right.
+   Paragraph roles come from position: an image paragraph that isn't last is the thumbnail,
+   the last paragraph is favicon + domain. */
+.callout[data-callout="link"] {
+  display: grid;
+  grid-template-columns: minmax(96px, 28%) 1fr;
+  column-gap: 16px;
+  padding: 0;
+  overflow: hidden;
+  background-color: transparent;
+  border: 1px solid var(--background-modifier-border);
+  position: relative;
+}
+.callout[data-callout="link"] > .callout-title {
+  grid-column: 2;
+  grid-row: 1;
+  padding: 14px 16px 0 0;
+  color: var(--text-normal);
+}
+.callout[data-callout="link"] .callout-icon {
+  display: none;
+}
+.callout[data-callout="link"] .callout-title a {
+  color: var(--text-normal);
+  font-weight: 600;
+  text-decoration: none;
+  background-image: none;          /* no external-link arrow */
+  padding-right: 0;
+}
+.callout[data-callout="link"] > .callout-content {
+  display: contents;               /* its paragraphs sit directly in the card grid */
+}
+/* The whole card opens the link: the title link's click area covers the card.
+   In live preview a click opens the link too; to edit, move the cursor in from the line below. */
+.callout[data-callout="link"] > .callout-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.callout[data-callout="link"]:hover {
+  background-color: var(--background-modifier-hover);
+}
+/* Thumbnail: the full height of the left column, cropped to fit */
+.callout[data-callout="link"] > .callout-content > :has(img):not(:last-child) {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  position: relative;
+  min-height: 104px;
+  margin: 0;
+}
+.callout[data-callout="link"] > .callout-content > :has(img):not(:last-child) img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  margin: 0;
+}
+/* Some themes (Minimal) dim images in dark mode; keep card images clear */
+.theme-dark .callout[data-callout="link"] img {
+  opacity: 1;
+}
+/* Text column */
+.callout[data-callout="link"] > .callout-content > :not(:has(img)),
+.callout[data-callout="link"] > .callout-content > :last-child {
+  grid-column: 2;
+  margin: 6px 16px 0 0;
+  color: var(--text-normal);
+}
+/* Description: two lines at most */
+.callout[data-callout="link"] > .callout-content > :not(:has(img)):not(:last-child) {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+/* Last line: favicon + domain, small and muted */
+.callout[data-callout="link"] > .callout-content > :last-child {
+  color: var(--text-muted);
+  font-size: 0.85em;
+  margin-bottom: 14px;
+}
+/* Keep the favicon inline (Minimal's image grid turns image embeds into blocks) */
+.callout[data-callout="link"] > .callout-content > :last-child .image-embed {
+  display: inline-flex;
+  vertical-align: -3px;
+  line-height: 0;
+  margin-right: 6px;
+}
+.callout[data-callout="link"] > .callout-content > :last-child img {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+/* A card without a thumbnail has one column */
+.callout[data-callout="link"]:not(:has(> .callout-content > :not(:last-child) img)) {
+  grid-template-columns: 1fr;
+}
+.callout[data-callout="link"]:not(:has(> .callout-content > :not(:last-child) img)) > .callout-title,
+.callout[data-callout="link"]:not(:has(> .callout-content > :not(:last-child) img)) > .callout-content > * {
+  grid-column: 1;
+  padding-left: 16px;
+}
+
+/* ── Favicon inside a mention (reading view and live preview): inline and 16px ── */
+:is(body .markdown-rendered a:has(img[width="16"]):has(em), .is-live-preview .cm-line:has(.cm-em.cm-link)) :is(.image-embed[width="16"], .image-embed:has(img[width="16"])).is-loaded {
+  display: inline-flex;
+  vertical-align: -3px;
+  line-height: 0;
+  margin-right: 4px;
+}
+:is(body .markdown-rendered a:has(img[width="16"]):has(em), .is-live-preview .cm-line:has(.cm-em.cm-link)) :is(.image-embed[width="16"], .image-embed:has(img[width="16"])) img {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+.theme-dark :is(body .markdown-rendered a:has(img[width="16"]):has(em), .is-live-preview .cm-line:has(.cm-em.cm-link)) :is(.image-embed[width="16"], .image-embed:has(img[width="16"])) img {
+  opacity: 1;
+}
+/* Minimal's image grid turns paragraphs with images into grids; keep mention paragraphs as text */
+.img-grid .markdown-preview-section > div > p:has(a img[width="16"]):has(a em):not(:has(img:not([width="16"]))) {
+  display: block;
+  margin-block: var(--p-spacing, 1rem);
+}
+.img-grid .markdown-preview-section > div > p:has(a img[width="16"]):has(a em):not(:has(img:not([width="16"]))) > br {
+  display: inline;
+}
+
+/* ── Mention, reading view ──
+   Favicon, muted site name and bold title in one line; the whole mention is one link.
+   Obsidian's link color and underline variables are overridden inside mentions only, hover included. */
+body .markdown-rendered a:has(img[width="16"]):has(em),
+body .markdown-rendered a:has(img[width="16"]):has(em):hover {
+  --link-color: var(--text-normal);
+  --link-color-hover: var(--text-normal);
+  --link-external-color: var(--text-normal);
+  --link-external-color-hover: var(--text-normal);
+  --link-decoration: none;
+  --link-decoration-hover: none;
+  --link-external-decoration: none;
+  --link-external-decoration-hover: none;
+  color: var(--text-normal);
+  font-weight: 600;
+  text-decoration: none;
+  background-image: none;          /* no external-link arrow */
+  padding: 3px 4px;                /* hover highlight area; the negative margin keeps the text in place */
+  margin: 0 -4px;
+  border-radius: 4px;
+  -webkit-box-decoration-break: clone;   /* rounded on every line when it wraps */
+  box-decoration-break: clone;
+}
+body .markdown-rendered a:has(img[width="16"]):has(em):hover {
+  background-color: var(--background-modifier-hover);
+}
+body .markdown-rendered a:has(img[width="16"]):has(em) em,
+body .markdown-rendered a:has(img[width="16"]):has(em):hover em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-right: 2px;
+}
+body .markdown-rendered a:has(img[width="16"]):has(em) img {
+  width: 16px;
+  height: 16px;
+  vertical-align: -3px;
+  margin-right: 4px;
+  border-radius: 3px;
+}
+.theme-dark a:has(img[width="16"]):has(em) img {
+  opacity: 1;
+}
+
+/* ── Mention, live preview: the link is drawn as separate spans ──
+   After the favicon, .cm-em.cm-link is the site name and .cm-link (not italic) is the title */
+.is-live-preview .cm-line:has(.cm-em.cm-link) :is(.image-embed[width="16"], .image-embed:has(img[width="16"]), img[width="16"]) ~ .cm-em.cm-link,
+.is-live-preview .cm-line:has(.cm-em.cm-link) :is(.image-embed[width="16"], .image-embed:has(img[width="16"]), img[width="16"]) ~ .cm-em.cm-link * {
+  --link-color: var(--text-muted);
+  --link-color-hover: var(--text-muted);
+  --link-external-color: var(--text-muted);
+  --link-external-color-hover: var(--text-muted);
+  --link-decoration: none;
+  --link-decoration-hover: none;
+  --link-external-decoration: none;
+  --link-external-decoration-hover: none;
+  color: var(--text-muted);
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: none;
+}
+.is-live-preview .cm-line:has(.cm-em.cm-link) :is(.image-embed[width="16"], .image-embed:has(img[width="16"]), img[width="16"]) ~ :is(.cm-link, .external-link):not(.cm-em),
+.is-live-preview .cm-line:has(.cm-em.cm-link) :is(.image-embed[width="16"], .image-embed:has(img[width="16"]), img[width="16"]) ~ :is(.cm-link, .external-link):not(.cm-em) * {
+  --link-color: var(--text-normal);
+  --link-color-hover: var(--text-normal);
+  --link-external-color: var(--text-normal);
+  --link-external-color-hover: var(--text-normal);
+  --link-decoration: none;
+  --link-decoration-hover: none;
+  --link-external-decoration: none;
+  --link-external-decoration-hover: none;
+  color: var(--text-normal);
+  font-weight: 600;
+  text-decoration: none;
+  background-image: none;
+  padding-right: 0;
+}
+
+/* Live preview hover: the mention is painted span by span.
+   - Hovering any piece lights up every mention piece on that line (line-level :has).
+   - Pieces get backgrounds only, never overlapping: overlaps darken the translucent color and cover earlier text.
+   - The first text piece stretches its left padding over the favicon (favicon 16 + gap 4 + outside 4 = 24px),
+     cancelled by a negative margin; the favicon is lifted above it.
+   - The last text piece stretches 4px to the right. Padding and negative margin cancel, so no text moves.
+   - Works whether the favicon is a bare img or wrapped in a span. */
+.markdown-source-view.is-live-preview .cm-line :is(.image-embed, img[width="16"]):has(~ .cm-em.cm-link) {
+  margin-left: 0;
+  margin-right: 4px;               /* gap after the favicon; the 24px above counts on it */
+}
+.is-live-preview .cm-line:has(.cm-em.cm-link):has(img[width="16"]:hover, :is(.image-embed, img[width="16"]) ~ .cm-link:hover) :is(.image-embed, img[width="16"]) ~ .cm-link {
+  background-color: var(--background-modifier-hover);
+  padding-block: 3px;
+}
+.is-live-preview .cm-line:has(.cm-em.cm-link):has(img[width="16"]:hover, :is(.image-embed, img[width="16"]) ~ .cm-link:hover) :is(.image-embed, img[width="16"]) ~ .cm-link:not(:is(.image-embed, img[width="16"]) ~ .cm-link ~ .cm-link) {
+  padding-left: 24px;
+  margin-left: -24px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.is-live-preview .cm-line:has(.cm-em.cm-link):has(img[width="16"]:hover, :is(.image-embed, img[width="16"]) ~ .cm-link:hover) :is(.image-embed, img[width="16"]) ~ .cm-link:not(:has(~ .cm-link)) {
+  padding-right: 4px;
+  margin-right: -4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.is-live-preview .cm-line:has(.cm-em.cm-link):has(img[width="16"]:hover, :is(.image-embed, img[width="16"]) ~ .cm-link:hover) :is(.image-embed, img[width="16"]):has(~ .cm-link) {
+  position: relative;
+  z-index: 1;
+}
