@@ -2,7 +2,7 @@
 
 [English](README.md) | [한국어](README.ko.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | **Español** | [Français](README.fr.md)
 
-Pega una URL y elige cómo aparece en tu nota: un enlace con título, una mención en línea o una tarjeta de enlace. Todo se guarda como Markdown normal, así que tus notas se pueden leer sin el plugin.
+Pega una URL en una nota de [Obsidian](https://obsidian.md) y elige cómo aparece: un enlace con título, una mención en línea o una tarjeta de enlace. Todo se guarda como Markdown normal, así que tus notas se pueden leer sin el plugin.
 
 ![Menciones y tarjetas de enlace en una nota](screenshot/sample1.png)
 

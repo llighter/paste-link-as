@@ -2,7 +2,7 @@
 
 [English](README.md) | [한국어](README.ko.md) | **简体中文** | [日本語](README.ja.md) | [Español](README.es.md) | [Français](README.fr.md)
 
-粘贴 URL 后，选择它在笔记中的呈现方式：带标题的链接、行内提及或链接卡片。所有内容都以普通 Markdown 保存，即使没有这个插件，笔记也照样可读。
+在 [Obsidian](https://obsidian.md) 笔记中粘贴 URL 后，选择它的呈现方式：带标题的链接、行内提及或链接卡片。所有内容都以普通 Markdown 保存，即使没有这个插件，笔记也照样可读。
 
 ![笔记中的提及和链接卡片](screenshot/sample1.png)
 

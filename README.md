@@ -2,7 +2,7 @@
 
 **English** | [한국어](README.ko.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Español](README.es.md) | [Français](README.fr.md)
 
-Paste a URL and choose how it lands in your note: a titled link, an inline mention, or a link card. Everything is written as plain Markdown, so your notes stay readable without the plugin.
+Paste a URL into an [Obsidian](https://obsidian.md) note and choose how it lands: a titled link, an inline mention, or a link card. Everything is written as plain Markdown, so your notes stay readable without the plugin.
 
 ![Mentions and link cards in a note](screenshot/sample1.png)
 

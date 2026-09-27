@@ -2,7 +2,7 @@
 
 [English](README.md) | **한국어** | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Español](README.es.md) | [Français](README.fr.md)
 
-URL을 붙여넣고 노트에 들어갈 모양을 고릅니다: 제목 링크, 인라인 멘션, 링크 카드. 모두 평범한 마크다운으로 저장되므로 플러그인이 없어도 노트를 그대로 읽을 수 있습니다.
+[Obsidian](https://obsidian.md) 노트에 URL을 붙여넣고 들어갈 모양을 고릅니다: 제목 링크, 인라인 멘션, 링크 카드. 모두 평범한 마크다운으로 저장되므로 플러그인이 없어도 노트를 그대로 읽을 수 있습니다.
 
 ![노트 안의 멘션과 링크 카드](screenshot/sample1.png)
 

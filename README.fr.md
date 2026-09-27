@@ -2,7 +2,7 @@
 
 [English](README.md) | [한국어](README.ko.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Español](README.es.md) | **Français**
 
-Collez une URL et choisissez sa forme dans votre note : un lien avec titre, une mention en ligne ou une carte de lien. Tout est écrit en Markdown standard, vos notes restent donc lisibles sans le plugin.
+Collez une URL dans une note [Obsidian](https://obsidian.md) et choisissez sa forme : un lien avec titre, une mention en ligne ou une carte de lien. Tout est écrit en Markdown standard, vos notes restent donc lisibles sans le plugin.
 
 ![Mentions et cartes de lien dans une note](screenshot/sample1.png)
 

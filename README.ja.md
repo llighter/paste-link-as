@@ -2,7 +2,7 @@
 
 [English](README.md) | [한국어](README.ko.md) | [简体中文](README.zh-CN.md) | **日本語** | [Español](README.es.md) | [Français](README.fr.md)
 
-URL を貼り付けて、ノートにどう入れるかを選べます。タイトル付きリンク、インラインのメンション、リンクカードの 3 種類です。すべてプレーンな Markdown で書き込まれるため、プラグインがなくてもノートはそのまま読めます。
+[Obsidian](https://obsidian.md) のノートに URL を貼り付けて、どう入れるかを選べます。タイトル付きリンク、インラインのメンション、リンクカードの 3 種類です。すべてプレーンな Markdown で書き込まれるため、プラグインがなくてもノートはそのまま読めます。
 
 ![ノート内のメンションとリンクカード](screenshot/sample1.png)
 
