@@ -15,7 +15,8 @@ const THUMB_EXT = { "image/png": "png", "image/webp": "webp", "image/gif": "gif"
 const ICON_EXTS = ["png", "svg", "jpg", "jpeg", "webp", "gif"];
 const THUMB_EXTS = ["jpg", "png", "webp", "gif", "svg"];
 
-// ── UI text: English, or Korean when Obsidian's language is Korean ──
+// ── UI text in Obsidian's language: the exact code, then its base language (zh-TW → zh), then English.
+//    A string missing from a translation falls back to English. Keys are lowercase language codes. ──
 const TEXT = {
   en: {
     keep: "Keep", keepNote: "Titled link",
@@ -39,8 +40,53 @@ const TEXT = {
     folder: "이미지 폴더",
     folderDesc: "썸네일과 파비콘을 저장할 폴더. 비워 두면 Obsidian 설정의 첨부파일 위치를 쓴다.",
   },
+  zh: {
+    keep: "保持", keepNote: "带标题的链接",
+    mention: "提及", mentionNote: "图标、网站名称和标题显示在一行",
+    card: "卡片", cardNote: "缩略图、描述和域名",
+    toCard: "将链接转为卡片", toMention: "将链接转为提及",
+    ask: "链接地址", noUrl: "未找到链接地址。",
+    noTitle: "无法获取标题", failed: "无法转换链接", lost: "找不到粘贴的链接",
+    makingCard: "正在生成卡片…", makingMention: "正在生成提及…",
+    folder: "图片文件夹",
+    folderDesc: "缩略图和网站图标的保存位置。留空则使用 Obsidian 设置中的附件位置。",
+  },
+  ja: {
+    keep: "そのまま", keepNote: "タイトル付きリンク",
+    mention: "メンション", mentionNote: "ファビコン・サイト名・タイトルを1行で",
+    card: "カード", cardNote: "サムネイル・説明・ドメイン",
+    toCard: "リンクをカードに変換", toMention: "リンクをメンションに変換",
+    ask: "リンクのURL", noUrl: "リンクのURLが見つかりません。",
+    noTitle: "タイトルを取得できませんでした", failed: "リンクを変換できませんでした", lost: "貼り付けたリンクが見つかりません",
+    makingCard: "カードを作成中…", makingMention: "メンションを作成中…",
+    folder: "画像フォルダ",
+    folderDesc: "サムネイルとファビコンの保存先です。空欄にすると、Obsidian の設定にある添付ファイルの場所を使います。",
+  },
+  es: {
+    keep: "Mantener", keepNote: "Enlace con título",
+    mention: "Mención", mentionNote: "Favicon, nombre del sitio y título en una línea",
+    card: "Tarjeta", cardNote: "Miniatura, descripción y dominio",
+    toCard: "Convertir enlace en tarjeta", toMention: "Convertir enlace en mención",
+    ask: "Dirección del enlace", noUrl: "No se encontró ninguna dirección de enlace.",
+    noTitle: "No se pudo obtener el título", failed: "No se pudo convertir el enlace", lost: "el enlace pegado ya no está",
+    makingCard: "Creando tarjeta…", makingMention: "Creando mención…",
+    folder: "Carpeta de imágenes",
+    folderDesc: "Dónde se guardan las miniaturas y los favicons. Déjala vacía para usar la ubicación de los archivos adjuntos de la configuración de Obsidian.",
+  },
+  fr: {
+    keep: "Garder", keepNote: "Lien avec titre",
+    mention: "Mention", mentionNote: "Favicon, nom du site et titre sur une ligne",
+    card: "Carte", cardNote: "Miniature, description et domaine",
+    toCard: "Transformer le lien en carte", toMention: "Transformer le lien en mention",
+    ask: "Adresse du lien", noUrl: "Aucune adresse de lien trouvée.",
+    noTitle: "Impossible de récupérer le titre", failed: "Impossible de convertir le lien", lost: "le lien collé est introuvable",
+    makingCard: "Création de la carte…", makingMention: "Création de la mention…",
+    folder: "Dossier des images",
+    folderDesc: "Emplacement des miniatures et des favicons. Laissez vide pour utiliser l'emplacement des pièces jointes défini dans les paramètres d'Obsidian.",
+  },
 };
-const T = TEXT[(window.localStorage.getItem("language") || "").startsWith("ko") ? "ko" : "en"];
+const LANG = String(window.localStorage.getItem("language") || "en").toLowerCase();
+const T = Object.assign({}, TEXT.en, TEXT[LANG.split("-")[0]], TEXT[LANG]);
 
 // ── Text helpers ──
 const clean = s => String(s ?? "").replace(/\s+/g, " ").trim();

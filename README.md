@@ -1,5 +1,7 @@
 # Paste Link As
 
+**English** | [한국어](README.ko.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Español](README.es.md) | [Français](README.fr.md)
+
 Paste a URL and choose how it lands in your note: a titled link, an inline mention, or a link card. Everything is written as plain Markdown, so your notes stay readable without the plugin.
 
 ![Mentions and link cards in a note](screenshot/sample1.png)
@@ -25,7 +27,7 @@ You can also convert a URL that is already in a note. Select it (a bare URL or a
 
 With nothing selected, the commands use the URL on the clipboard, or ask for one. The plugin sets no default hotkeys; assign your own in **Settings → Hotkeys**.
 
-The menu and commands follow Obsidian's language: English, or Korean when Obsidian is set to Korean.
+The menu, commands and settings follow Obsidian's language: English, Korean, Simplified Chinese, Japanese, Spanish or French. Traditional Chinese uses Simplified Chinese, and any other language falls back to English.
 
 ## What gets written
 
