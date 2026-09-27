@@ -14,7 +14,9 @@ Paste a URL into a note. It goes in as `[Title](url)` right away, and a small me
 
 Use ↑/↓ and Enter (or Tab) to pick, and Esc to close. To ignore the menu, just keep typing; Enter on **Keep** starts a new line as usual.
 
-![The menu under a pasted URL, with a card above it (Korean UI)](screenshot/sample2.png)
+![Pasting a YouTube URL: it goes in as a titled link, then becomes a mention and a card from the menu](screenshot/sample2.gif)
+
+[Watch the demo as MP4](screenshot/sample2.mp4)
 
 You can also convert a URL that is already in a note. Select it (a bare URL or a `[Title](url)` link) and run a command:
 
