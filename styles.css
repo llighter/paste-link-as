@@ -2,7 +2,8 @@
    - A card is a [!link] callout.
    - A mention is a link holding a 16px favicon and an italic site name: [![|16](favicon.png) *Site* Title](url).
    The rules only match those shapes, so other links and images keep the theme's look.
-   Title weight: --paste-link-as-title-weight (500 by default), e.g. body { --paste-link-as-title-weight: 600; } */
+   Title weight: --paste-link-as-title-weight (500 by default), e.g. body { --paste-link-as-title-weight: 600; }
+   Card width: --paste-link-as-card-max-width (40rem by default), e.g. body { --paste-link-as-card-max-width: none; } */
 
 /* ── Format menu under a pasted URL ── */
 .suggestion-container.paste-link-as-menu {
@@ -24,6 +25,7 @@
   display: grid;
   grid-template-columns: minmax(96px, 28%) minmax(0, 1fr);   /* minmax(0, …): one-line text shrinks instead of widening the card */
   gap: 0 16px;
+  max-width: var(--paste-link-as-card-max-width, 40rem);   /* fills narrow panes, stops growing on wide ones */
   padding: 0;
   overflow: hidden;
   background-color: transparent;
